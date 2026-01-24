@@ -28,9 +28,9 @@ ZIP 파일을 **압축 해제하지 않고**,
 
 ## 🖼 Screenshots
 
-> 이미지 파일은 `/assets/error_img` 디렉토리에 포함됩니다.
+> 이미지 파일은 `/assets/img` 디렉토리에 포함됩니다.
 
-![Main UI – ZIP Text Viewer](assets/error_img/final_result_zip_text_viewer.webp)
+![Main UI – ZIP Text Viewer](assets/img/final_result_zip_text_viewer.webp)
 
 ---
 
