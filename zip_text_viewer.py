@@ -11,6 +11,22 @@ from PySide6.QtWidgets import (
     QComboBox, QSplitter, QSizePolicy, QCheckBox
 )
 
+from abc import ABC, abstractmethod
+
+class ArchiveAdapter(ABC):
+    @abstractmethod
+    def list_text_entries(self) -> list[EntryInfo]:
+        ...
+
+    @abstractmethod
+    def read_entry_bytes(self, name: str, max_bytes: int) -> bytes:
+        ...
+
+    @abstractmethod
+    def close(self) -> None:
+        ...
+
+
 TEXT_EXTS = {".txt", ".md", ".log", ".csv", ".json", ".tsv", ".yaml", ".yml", ".ini", ".cfg"}
 PREVIEW_MAX_BYTES = 10 * 1024 * 1024  # 10MB
 
@@ -41,7 +57,8 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("ZIP 텍스트 뷰어 (UTF-8/CP949)")
 
         self.zip_path: Path | None = None
-        self.zf: zipfile.ZipFile | None = None
+        self.archive = None  # ZipAdapter | SevenZipAdapter
+        self.archive_type: str | None = None  # "zip" | "7z"
         self.entries: list[EntryInfo] = []
         self.current_entry: EntryInfo | None = None
         self.last_raw_bytes: bytes | None = None
